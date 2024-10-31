@@ -1,5 +1,4 @@
-<<<<<<< Updated upstream
-=======
+
 CREATE TABLE users
 (
     id       SERIAL PRIMARY KEY,
@@ -32,4 +31,3 @@ CREATE TABLE students
     FOREIGN KEY (guardian_id) REFERENCES guardians (id) ON DELETE SET NULL
 );
 
->>>>>>> Stashed changes

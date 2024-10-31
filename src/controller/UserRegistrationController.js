@@ -5,6 +5,7 @@ const createStudent = async (req, res) => {
     const {name, email, password, cpf, studentId, school} = req.body
 
     try {
+
         const existingUser = await knex('users').where({email: email});
 
 
@@ -53,8 +54,9 @@ const createGuardian = async (req, res) => {
     const {name, email, password, cpf} = req.body
 
     try {
-        const existingUser = await knex('users').where({email: email});
 
+
+        const existingUser = await knex('users').where({email: email});
 
         if (existingUser.length > 0) {
             return res.status(409).json({message: "Email já existe!"})
