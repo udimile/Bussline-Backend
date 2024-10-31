@@ -5,11 +5,8 @@ const createStudent = async (req, res) => {
     const {name, email, password, cpf, studentId, school} = req.body
 
     try {
-<<<<<<< Updated upstream
-        const user = await knex('users').where({email: email});
-=======
         const existingUser = await knex('users').where({email: email});
->>>>>>> Stashed changes
+
 
         if (existingUser.length > 0) {
             return res.status(409).json({message: "Email já existe!"})
@@ -17,18 +14,9 @@ const createStudent = async (req, res) => {
 
         const passwordBcrypt = await bcrypt.hash(password, 10)
 
-<<<<<<< Updated upstream
-        const newUser = await knex('user').insert({
-            name,
-            email,
-            password: passwordBcrypt,
-            studentId,
-            cpf,
-        }).returning(['name', 'email', 'password', 'student_id', 'cpf']);
-=======
         let newStudent;
         let newUser;
->>>>>>> Stashed changes
+
 
         await knex.transaction(async trx => {
             newUser = await trx('user').insert({
@@ -65,11 +53,8 @@ const createGuardian = async (req, res) => {
     const {name, email, password, cpf} = req.body
 
     try {
-<<<<<<< Updated upstream
-        const user = await knex('users').where({email: email});
-=======
         const existingUser = await knex('users').where({email: email});
->>>>>>> Stashed changes
+
 
         if (existingUser.length > 0) {
             return res.status(409).json({message: "Email já existe!"})
