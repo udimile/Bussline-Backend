@@ -5,7 +5,7 @@ const createStudent = async (req, res) => {
     const {name, email, password, cpf, studentId} = req.body
 
     try {
-        const user = await knex('users').where({email: email});
+        const user = await knex('student').where({email: email});
 
         if (user.length > 0) {
             return res.status(409).json({message: "Email já existe!"})
@@ -13,7 +13,7 @@ const createStudent = async (req, res) => {
 
         const passwordBcrypt = await bcrypt.hash(password, 10)
 
-        const newUser = await knex('user').insert({
+        const newUser = await knex('student').insert({
             name,
             email,
             password: passwordBcrypt,
@@ -32,7 +32,7 @@ const createGuardian = async (req, res) => {
     const {name, email, password, cpf} = req.body
 
     try {
-        const user = await knex('users').where({email: email});
+        const user = await knex('guardian').where({email: email});
 
         if (user.length > 0) {
             return res.status(409).json({message: "Email já existe!"})
