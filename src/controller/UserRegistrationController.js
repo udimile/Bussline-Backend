@@ -45,6 +45,7 @@ const createStudent = async (req, res) => {
         })
 
     } catch (error) {
+        console.log(error)
         return res.status(500).json({message: "Erro interno do servidor. Tente novamente mais tarde."})
     }
 }
@@ -90,7 +91,7 @@ const createGuardian = async (req, res) => {
         })
 
     } catch (error) {
-       
+       console.log(error)
         return res.status(500).json({message: "Erro interno do servidor. Tente novamente mais tarde."})
     }
 }

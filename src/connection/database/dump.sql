@@ -25,7 +25,7 @@ CREATE TABLE students
     guardian_id INT,
     cpf         VARCHAR(11)  NOT NULL UNIQUE,
     ra          VARCHAR(20)  NOT NULL UNIQUE,
-    school      VARCHAR(255) NOT NULL,
+    school      VARCHAR(255),
     address     VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     FOREIGN KEY (guardian_id) REFERENCES guardians (id) ON DELETE SET NULL
