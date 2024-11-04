@@ -20,7 +20,7 @@ const createStudent = async (req, res) => {
 
 
         await knex.transaction(async trx => {
-            newUser = await trx('user').insert({
+            newUser = await trx('users').insert({
                 name,
                 email,
                 password: passwordBcrypt,
@@ -29,7 +29,7 @@ const createStudent = async (req, res) => {
 
             const userId = newUser[0].id;
 
-            newStudent = await trx('student').insert({
+            newStudent = await trx('students').insert({
                 user_id: userId,
                 cpf,
                 ra: studentId,
@@ -38,7 +38,6 @@ const createStudent = async (req, res) => {
 
 
         })
-
 
         return res.status(201).json({
             usuario: newUser[0],
@@ -67,8 +66,10 @@ const createGuardian = async (req, res) => {
         let newGuardian;
         let newUser;
 
+       
+
         await knex.transaction(async trx => {
-            newUser = await trx('user').insert({
+            newUser = await trx('users').insert({
                 name,
                 email,
                 password: passwordBcrypt,
@@ -77,18 +78,19 @@ const createGuardian = async (req, res) => {
 
             const userId = newUser[0].id;
 
-            newGuardian = await trx('guardian').insert({
+            newGuardian = await trx('guardians').insert({
                 user_id: userId,
                 cpf,
             }).returning(['*']);
         })
-
+        
         return res.status(201).json({
             usuario: newUser[0],
             responsavel: newGuardian[0]
         })
 
     } catch (error) {
+       
         return res.status(500).json({message: "Erro interno do servidor. Tente novamente mais tarde."})
     }
 }

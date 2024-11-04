@@ -1,13 +1,15 @@
 const express = require('express');
 const userRouter = express.Router();
 
-const {updateUser, getUserData} = require('../controller/UserController');
-const validate = require('../middlewares/userMiddleware');
+const {updateUser, getUserData, getStudentByStudentId, getAllStudentOfGuardian, userByCpfOrStudentId} = require('../controller/UserController');
+const validate = require('../middlewares/requestMiddleware');
 const userSchema = require('../validations/userSchema');
-const verifyLogin = require('../middlewares/loginMiddleware');
 
-userRouter.put('/', validate(userSchema), updateUser);
-userRouter.get('/', verifyLogin, getUserData);
+userRouter.put('/users', validate(userSchema), updateUser);
+userRouter.get('/userData', getUserData);
+userRouter.get('/students/:ra', getStudentByStudentId)
+userRouter.get('/guardians/:guardianId/students', getAllStudentOfGuardian)
+userRouter.get('/users', userByCpfOrStudentId)
 
 module.exports = userRouter;
 
