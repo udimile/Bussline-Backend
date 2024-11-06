@@ -86,7 +86,7 @@ const getLoggedUserData = async (id) => {
     return user
 }
 
-const updateUserData = async (is, updateData) => {
+const updateUserData = async (id, updateData) => {
 
     const { name, email, password, type, ...specificData } = updateData;
 
