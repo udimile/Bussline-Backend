@@ -1,7 +1,7 @@
 const express = require('express');
 const userRouter = express.Router();
 
-const {updateUser, getUserData, getStudentByStudentId, getAllStudentOfGuardian, userByCpfOrStudentId} = require('../controller/UserController');
+const {updateUser, getUserData, getStudentByStudentId, getAllStudentOfGuardian, userByCpfOrStudentId} = require('../controller/userController');
 const validate = require('../middlewares/requestMiddleware');
 const userSchema = require('../validations/userSchema');
 
