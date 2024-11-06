@@ -5,7 +5,7 @@ const cors = require('cors')
 const loginRouter = require("./routes/loginRoutes");
 const verifyLogin = require("./middlewares/loginMiddleware");
 const registrationRouter = require("./routes/userRegistrationRoutes");
-const userRouter = require('./routes/UserRoutes');
+const userRouter = require('./routes/userRoutes');
 
 const app = express()
 
