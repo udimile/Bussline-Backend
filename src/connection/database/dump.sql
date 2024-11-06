@@ -13,7 +13,7 @@ CREATE TABLE guardians
 (
     id      SERIAL PRIMARY KEY,
     user_id INT         NOT NULL,
-    cpf     VARCHAR(1) NOT NULL UNIQUE,
+    cpf     VARCHAR(15) NOT NULL UNIQUE,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
