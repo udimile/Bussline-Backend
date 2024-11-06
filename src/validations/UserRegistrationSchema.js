@@ -20,7 +20,7 @@ const userRegistrationStudentSchema = joi.object({
         'string.empty': 'O campo cpf é obrigatório!',
         'string.pattern': 'O campo cpf deve conter um cpf válido!'
     }),
-    studentId: joi.string().required().messages({
+    ra: joi.string().required().messages({
         'any.required': 'O campo RA é obrigatório.',
         'string.empty': 'O campo RA é obrigatório.',
     }),

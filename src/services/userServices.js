@@ -122,26 +122,6 @@ const updateUserData = async (is, updateData) => {
 
 }
 
-const getUserData = async (user) => {
-
-    let userData;
-
-    if (user.type === 'student') {
-        const studentData = await knex('students')
-            .where({ user_id: user.id })
-            .first();
-        userData = { ...user, ...studentData };
-    } else if (user.type === 'guardian') {
-        const guardianData = await knex('guardians')
-            .where({ user_id: user.id })
-            .first();
-        userData = { ...user, ...guardianData };
-    }
-
-    return userData
-    
-}
-
 module.exports = {
     verifyPassword,
     updateUserData,
@@ -153,6 +133,5 @@ module.exports = {
     studentByStudentId,
     getAllStudent,
     studentByGuardianId,
-    studentByCpf,
-    getUserData
+    studentByCpf
 }
