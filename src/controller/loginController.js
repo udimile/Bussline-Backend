@@ -17,13 +17,24 @@ const login = async (req, res) => {
         }
 
         const correctPass = await bcrypt.compare(password, user.password)
-
+        
         if (!correctPass) {
             return res.status(401).json({ message: "Credenciais Inválidas" })
         }
 
         let userData = { ...user };
-        userData = getUserData(user);
+
+        if (user.type === 'student') {
+            const studentData = await knex('students')
+                .where({ user_id: user.id })
+                .first();
+            userData = { ...user, ...studentData };
+        } else if (user.type === 'guardian') {
+            const guardianData = await knex('guardians')
+                .where({ user_id: user.id })
+                .first();
+            userData = { ...user, ...guardianData };
+        }
 
 
         const token = jwt.sign({ id: user.id }, passwordHash, { expiresIn: '30d' })

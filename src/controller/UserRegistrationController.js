@@ -2,7 +2,7 @@ const knex = require('../connection/connection')
 const bcrypt = require('bcrypt')
 
 const createStudent = async (req, res) => {
-    const {name, email, password, cpf, studentId, school} = req.body
+    const {name, email, password, cpf, ra, school} = req.body
 
     try {
 
@@ -32,7 +32,7 @@ const createStudent = async (req, res) => {
             newStudent = await trx('students').insert({
                 user_id: userId,
                 cpf,
-                ra: studentId,
+                ra,
                 school,
             }).returning(['*']);
 

@@ -13,7 +13,7 @@ CREATE TABLE guardians
 (
     id      SERIAL PRIMARY KEY,
     user_id INT         NOT NULL,
-    cpf     VARCHAR(11) NOT NULL UNIQUE,
+    cpf     VARCHAR(1) NOT NULL UNIQUE,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
@@ -23,7 +23,7 @@ CREATE TABLE students
     id          SERIAL PRIMARY KEY,
     user_id     INT          NOT NULL,
     guardian_id INT,
-    cpf         VARCHAR(11)  NOT NULL UNIQUE,
+    cpf         VARCHAR(15)  NOT NULL UNIQUE,
     ra          VARCHAR(20)  NOT NULL UNIQUE,
     school      VARCHAR(255),
     address     VARCHAR(255),

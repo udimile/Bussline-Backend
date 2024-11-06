@@ -7,7 +7,7 @@ const loginSchema = joi.object({
         'string.email': 'O email precisa ser um email válido'
     }),
 
-    senha: joi.string().required().min(5).messages({
+    password: joi.string().required().min(5).messages({
         'any.required': 'A senha é obrigátoria',
         'string.empty': 'A senha é obrigátoria',
         'string.min': 'A senha deve ter pelo menos 8 caracteres'
