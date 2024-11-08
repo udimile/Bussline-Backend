@@ -15,9 +15,9 @@ app.use(cors())
 app.use('/login', loginRouter);
 app.use('/registration', registrationRouter);
 
-app.use(verifyLogin);
 
-app.use('/', userRouter)
+
+app.use('/', verifyLogin, userRouter)
 
 app.listen(process.env.PORT || 3000, console.log(
     `Servidor rodando na porta ${process.env.PORT || 3000}`));

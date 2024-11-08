@@ -44,9 +44,6 @@ const studentByCpf = async (cpf) => {
 const userById = async (id) => {
     const user = await knex('users').where({ id }).first();
 
-    if (!user) {
-        return res.status(404).json({ message: 'Usuário não encontrado.' });
-    }
 
     if (user.type === 'guardian') {
         const guardian = await knex('guardians')
@@ -62,7 +59,9 @@ const userById = async (id) => {
         user.studentInfo = student;
     }
 
-    res.json(user)
+    delete user.password;
+
+    return user
 
 
 }
@@ -86,26 +85,20 @@ const getLoggedUserData = async (id) => {
     return user
 }
 
-const updateUserData = async (id, updateData) => {
+const updateUserData = async (id, updateData, type) => {
 
-    const { name, email, password, type, ...specificData } = updateData;
+    const { name, email, password, ...specificData } = updateData;
 
     const encryptedPassword = await encryptUserPassword(password);
 
     const userUpdateData = { name, email, password: encryptedPassword, type };
+    
 
-    if (email !== req.user.email) {
-        const user = await userByEmail(email);
-        if (user) {
-            return res.status().json({ message: "O email informado já existe!" })
-        }
-    }
-
-    await knex('users').where({ id: userId }).update(userUpdateData);
+    await knex('users').where({ id}).update(userUpdateData);
 
     if (type === 'guardian') {
       if (specificData.cpf) {
-        await knex('guardians').where({ user_id: userId }).update({ cpf: specificData.cpf });
+        await knex('guardians').where({ user_id: id }).update({ cpf: specificData.cpf });
       }
     } else if (type === 'student') {
       const studentUpdateData = {
@@ -115,7 +108,7 @@ const updateUserData = async (id, updateData) => {
         address: specificData.address,
         guardian_id: specificData.guardian_id
       };
-      await knex('students').where({ user_id: userId }).update(studentUpdateData);
+      await knex('students').where({ user_id: id }).update(studentUpdateData);
     }
 
     return userById(id)

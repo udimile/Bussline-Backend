@@ -1,18 +1,25 @@
 const bcrypt = require('bcryptjs');
 const knex = require('../connection/connection');
-const { updateUserData, studentByStudentId, studentByGuardianId, guardianByCpf, studentByCpf } = require('../services/userServices');
+const { updateUserData, studentByStudentId, studentByGuardianId, guardianByCpf, studentByCpf, userByEmail } = require('../services/userServices');
 
 
 
 
 const updateUser = async (req, res) => {
     const updateData = req.body;
-    const { id } = req.user;
+    const { id, email: currentEmail, type} = req.user;
 
     try {
 
+        if (updateData.email && updateData.email !== currentEmail) {
+            const user = await userByEmail(updateData.email)
+            if (user) {
+                return res.status(400).json({ message: "O email informado já existe!" });
+            }
+        }
+
         const updatedUser = await updateUserData(
-            id, updateData
+            id, updateData, type
         );
 
         if (!updatedUser) {
