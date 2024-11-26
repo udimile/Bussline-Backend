@@ -9,4 +9,3 @@ const validate = (joiSchema) => async (req, res, next) => {
 }
 
 module.exports = validate;
-

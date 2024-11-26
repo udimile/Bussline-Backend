@@ -20,11 +20,11 @@ const userSchema = joi.object({
 })
 
 const userUpdateSchema = joi.object({
-    name: joi.string().required().messages({
+    name: joi.string().optional().messages({
         'any.required': 'O campo nome é obrigatório',
         'string.empty': 'O campo nome é obrigatório',
     }),
-    email: joi.string().email().required().messages({
+    email: joi.string().email().optional().messages({
         'string.email': 'O campo email precisa ser um email válido',
         'any.required': 'O campo email é obrigatório',
         'string.empty': 'O campo email é obrigatório',
